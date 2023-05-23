@@ -1,0 +1,55 @@
+version: '3.1'
+
+services:
+  # 3개의 instance 생성 backend, mongo, mongo-express
+#  backend:
+#    build:
+#      context: ./
+#      dockerfile: ./Dockerfile
+#    container_name: app-nodejs
+#    restart: always
+#    env_file:
+#      - .env
+#    volumes:
+#      - ./:/data/node-mongo/app
+#    ports:
+#      - "9091:9091"
+#    depends_on:
+#      - mongo
+  backend:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: app-nodejs
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./:/data/node_mongo/app
+    ports:
+      - "9091:9091"
+    depends_on:
+      - mongo
+
+
+  mongo:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root1234
+    ports:
+      - 27017:27017
+
+
+  mongo-express:
+    image: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:root1234@mongo:27017/
+    depends_on:
+      - mongo
