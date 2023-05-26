@@ -36,6 +36,10 @@ import cors from "cors"
 import morgan from "morgan"
 import bodyParser from "body-parser"
 
+import productRoute from "./routes/product.js"
+import orderRoute from "./routes/order.js"
+import userRoute from "./routes/user.js"
+
 import dotenv from "dotenv"
 dotenv.config()
 
@@ -46,6 +50,11 @@ connectDB();
 
 app.use(cors());
 app.use(morgan("dev"));
+
+app.use("/product", productRoute)
+app.use("/order", orderRoute)
+app.use("/user", userRoute)
+
 app.get("/", (req, res) => {
     res.json({
         msg: "server check"
