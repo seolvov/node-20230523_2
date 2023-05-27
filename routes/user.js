@@ -1,6 +1,6 @@
 import express from "express";
 import userModel from "../models/user.js";
-import bcrypt from "bcrypt" //암호화해주는 라이브러리
+import bcrypt from "bcryptjs" //암호화해주는 라이브러리
 import jwt from "jsonwebtoken"
 
 const router = express.Router()
@@ -62,9 +62,11 @@ router.post("/login", async (req, res) => {
     })
 })
 //정보가져오기
-router.get("/", async (req, res) => {
+router.get("/all", async (req, res) => {
+    const users = await userModel.find()
     res.json( {
-        msg: "get all"
+        msg: "get all users",
+        users
     })
 })
 

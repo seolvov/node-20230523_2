@@ -16,3 +16,7 @@ const orderSchema = mongoose.Schema(
         }
     }
 )
+
+const orderModel = mongoose.model("order", orderSchema) //테이블명 설정
+
+export default orderModel

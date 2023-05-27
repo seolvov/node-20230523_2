@@ -51,6 +51,9 @@ connectDB();
 app.use(cors());
 app.use(morgan("dev"));
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended : false}))
+
 app.use("/product", productRoute)
 app.use("/order", orderRoute)
 app.use("/user", userRoute)
@@ -60,11 +63,6 @@ app.get("/", (req, res) => {
         msg: "server check"
     })
 })
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : false}))
-
 
 const port = process.env.PORT || 9090
 
